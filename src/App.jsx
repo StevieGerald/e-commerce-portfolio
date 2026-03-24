@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Account from "./pages/Account";
 import { useState } from "react";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -18,6 +19,7 @@ function App() {
         <Route path="/products" element={<Home products={products} search={search} />} />
         <Route path="/deals" element={<Home products={products} search={search} />} />
         <Route path="/about" element={<Home products={products} search={search} />} />
+         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/account" element={<Account />} />
       </Routes>

@@ -102,10 +102,11 @@ h1, h2, h3 {
 }
 
 .search-bar input {
-  padding: 8px 15px;
+  padding: 10px;
   border: none;
   outline: none;
-  width: 200px;
+  width: 250px;
+  border-radius: 20px;
   background: transparent;
   color: white;
   font-size: 14px;
@@ -118,6 +119,7 @@ h1, h2, h3 {
 .search-bar button {
   padding: 8px 15px;
   border: none;
+  border-radius: 20px;
   background-color: #ff9900;
   color: #111;
   cursor: pointer;
@@ -151,12 +153,17 @@ h1, h2, h3 {
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.02);
+}
+
+.price {
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .product-card img {
   width: 100%;
-  height: auto; 
+  height: 200%; 
   object-fit: contain; 
   border-radius: 10px;
   max-height: 300px; 
@@ -348,4 +355,127 @@ button.pay-btn:hover {
 
 .logout-btn:hover {
   background: darkred;
+}
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(to right, #111, #333);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.hero h1 {
+  font-size: 36px;
+}
+
+.hero p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.hero button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  background: red;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.hero button:hover {
+  background: darkred;
+}
+
+/* Section Titles */
+.section-title {
+  margin: 30px 0 15px;
+  font-size: 22px;
+}
+
+/* Featured Products */
+.featured-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .featured-products,
+  .products-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 24px;
+  }
+}
+.product-details {
+  display: flex;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+}
+
+.image-section img {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.info-section h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.info-section .price {
+  font-size: 22px;
+  font-weight: bold;
+  color: red;
+  margin-bottom: 15px;
+}
+
+.info-section .description {
+  margin-bottom: 20px;
+}
+
+.info-section button {
+  padding: 12px 20px;
+  border: none;
+  background: red;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.info-section button:hover {
+  background: darkred;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .product-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-section img {
+    width: 100%;
+    height: 300px;
+  }
 }
