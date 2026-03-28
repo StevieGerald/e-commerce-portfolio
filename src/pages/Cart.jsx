@@ -1,23 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import Checkout from "../components/Checkout";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, removeFromCart, addToCart, decreaseQuantity, clearCart } = useContext(CartContext);
-
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { cart, removeFromCart, addToCart, decreaseQuantity } = useContext(CartContext);
   const navigate = useNavigate();
 
-  // 🚨 Redirect if user is not signed in
-  useEffect(() => {
-    if (!user) {
-      navigate("/account");
-    }
-  }, [user, navigate]);
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <div className="cart-container">
@@ -50,17 +39,12 @@ const Cart = () => {
 
           <div className="total">Total: ₦{total}</div>
 
-          {/* ✅ Show Checkout only if user is signed in */}
-          {user && (
-            <Checkout
-              email={user.email}
-              amount={total}
-              onSuccess={() => {
-                toast.success("Payment Successful!");
-                clearCart();
-              }}
-            />
-          )}
+          <button
+            className="pay-btn"
+            onClick={() => navigate("/checkout")}
+          >
+            Proceed to Checkout
+          </button>
         </>
       )}
     </div>

@@ -1,48 +1,62 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  // Cart items now include quantity
-  const [cart, setCart] = useState([]);
+  // ✅ Initialize from localStorage if exists
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
-  // Add item to cart
+  // ✅ Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const addToCart = (product) => {
-    const existing = cart.find((item) => item.id === product.id);
-    if (existing) {
-      // Increase quantity if already in cart
-      setCart(
-        cart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
-    }
+    setCart(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
+        return prev.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
   };
 
-  // Remove item completely
-  const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
-
-  // Decrease quantity by 1
   const decreaseQuantity = (id) => {
-    const item = cart.find((i) => i.id === id);
-    if (item.quantity === 1) {
-      removeFromCart(id);
-    } else {
-      setCart(
-        cart.map((i) =>
-          i.id === id ? { ...i, quantity: i.quantity - 1 } : i
-        )
-      );
-    }
+    setCart(prev =>
+      prev.map(item =>
+        item.id === id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      ).filter(item => item.quantity > 0)
+    );
+  };
+
+  const removeFromCart = (id) => {
+    setCart(prev => prev.filter(item => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCart([]); // ✅ Clears React state
+    localStorage.removeItem("cart"); // ✅ Clears localStorage
+    localStorage.removeItem("cartTotal");
   };
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, decreaseQuantity }}
+      value={{
+        cart,
+        addToCart,
+        decreaseQuantity,
+        removeFromCart,
+        clearCart
+      }}
     >
       {children}
     </CartContext.Provider>

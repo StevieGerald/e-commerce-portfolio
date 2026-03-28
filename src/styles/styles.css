@@ -136,7 +136,6 @@ h1, h2, h3 {
 }
 
 /* ---------------- Products Grid ---------------- */
-.products-container,
 .featured-products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -145,6 +144,12 @@ h1, h2, h3 {
 }
 
 /* ---------------- Product Card ---------------- */
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* space between cards */
+  margin-top: 20px;
+}
 .product-card {
   background: white;
   border-radius: 12px;
@@ -424,4 +429,75 @@ button.pay-btn:hover {
   font-size: 24px;
   text-align: center;
   font-weight: bold;
+}
+
+/* Checkout Layout */
+.checkout-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 40px auto;
+  flex-wrap: wrap;
+}
+
+.checkout-form,
+.checkout-summary {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Form */
+.checkout-form input,
+.checkout-form select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Summary */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .checkout-container {
+    flex-direction: column;
+  }
+}
+
+.order-success {
+  text-align: center;
+  padding: 40px;
+}
+
+.order-box {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  border-radius: 12px;
+}
+
+.order-success button {
+  padding: 10px 20px;
+  border: none;
+  background: #111;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
 }

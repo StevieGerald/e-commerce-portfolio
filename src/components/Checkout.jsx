@@ -11,18 +11,18 @@ const Checkout = ({ email, amount, onSuccess }) => {
     email,
     amount: amount * 100,
     publicKey,
-    className: "pay-btn",
     text: loading ? "Processing..." : "Pay Now",
+    className: "pay-btn",
 
     onSuccess: () => {
-      setLoading(false);
+      onSuccess(); // Trigger parent success handler
       toast.success("Payment Successful!");
-      onSuccess();
+      setLoading(false);
     },
 
     onClose: () => {
-      setLoading(false);
       toast.info("Payment cancelled");
+      setLoading(false);
     },
 
     onClick: () => setLoading(true),
